@@ -4,15 +4,17 @@ using System.Collections.Generic;
 
 namespace AddressBook
 {
-    public  enum MeneOption
+    public  enum MenuOption
     {
         Exit,
         Addperson,
         Addcompany,
         Listcontacts,
         Searchcontacts,
-        Removecontact
+        Removecontact,
+        Recipe,
+        SearchAll,
         
-        
+        UPPER_LIMIT
     }
 }
