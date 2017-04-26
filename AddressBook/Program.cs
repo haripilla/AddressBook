@@ -7,6 +7,7 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
+            // ABCDEFGHIJKLMNOPARSTUVWXYZ//
             string name = ConfigurationManager.AppSettings["ApplicationName"];
             Console.WriteLine("WELCOME TO" + name);
             Console.WriteLine(new string('-', Console.WindowWidth - 50));
