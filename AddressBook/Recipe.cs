@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Data;
+using System.Data.SqlClient;
 
 namespace AddressBook
 {
@@ -10,12 +11,12 @@ namespace AddressBook
         {
             _title = title;
         }
-        
 
         public bool Matches(string term)
         {
+
             return _title.ToLower().StartsWith(term.ToLower());
- 
+
         }
 
         public override string ToString()

@@ -12,6 +12,7 @@
         {
             _lastName = lastName;
             _firstName = firstName;
+
         }
 
         public override bool Matches(string term)
