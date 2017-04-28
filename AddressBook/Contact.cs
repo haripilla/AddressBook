@@ -14,6 +14,11 @@
             return _phoneNumber;
         }
 
+        public string GetPhoneNumber()
+        {
+            return _phoneNumber;
+        }
+
         private string _phoneNumber;
     }
 }

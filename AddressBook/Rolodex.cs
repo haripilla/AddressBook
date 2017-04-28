@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
+
 namespace AddressBook
 {
     public class Rolodex
@@ -226,7 +228,7 @@ namespace AddressBook
             Console.WriteLine("REMOVE A CONTACT!");
             Console.Write("Search for a contact: ");
             string term = GetNonEmptyStringFromUser();
-
+            DoSearchLoad();
             foreach (Contact contact in _contacts)
             {
                 if (contact.Matches(term))
@@ -235,14 +237,26 @@ namespace AddressBook
                     if (Console.ReadLine().ToLower() == "y")
                     {
                         _contacts.Remove(contact);
-                        return;
+                        //return;
+                        break;
                     }
                 }
             }
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Contact Contact in _contacts)
+            {
+                stringBuilder.Append(Contact).Append("|");
+                Console.WriteLine(stringBuilder);
+                //stringBuilder.AppendLine();
+                //Console.WriteLine(stringBuilder.ToString());
+            }
+            
 
             Console.WriteLine("No more contacts found.");
             Console.WriteLine("Press Enter to return to the menu...");
             Console.ReadLine();
+
+
         }
 
         private void DoSearchContacts()
@@ -282,10 +296,7 @@ namespace AddressBook
         private void DoSearchLoad()
         {
             _contacts.Clear();
-            string desktoppath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = "DATA.DAT";
-            string fullpath = Path.Combine(desktoppath, filename);
-
+            string fullpath = DoFilePath();
             using (StreamReader reader = File.OpenText(fullpath))
             {
                 while (!reader.EndOfStream)
@@ -325,10 +336,7 @@ namespace AddressBook
 
             _contacts.Add(new Company(name, phoneNumber));
 
-            string desktoppath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = "DATA.DAT";
-            string fullpath = Path.Combine(desktoppath, filename);
-
+            string fullpath = DoFilePath();
             using (StreamWriter writer = File.AppendText(fullpath))
             {
                 writer.WriteLine($"C| |{name}|{phoneNumber}");
@@ -351,15 +359,22 @@ namespace AddressBook
             string phoneNumber = GetNonEmptyStringFromUser();
 
             _contacts.Add(new Person(firstName, lastName, phoneNumber));
-            string desktoppath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = "DATA.DAT";
-            string fullpath = Path.Combine(desktoppath, filename);
-
+            
+            string fullpath = DoFilePath();
             using (StreamWriter writer = File.AppendText(fullpath))
             {
                 writer.WriteLine($"P|{firstName}|{lastName}|{phoneNumber}");
             }
         }
+
+        private string DoFilePath()
+        {
+            string desktoppath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filename = "DATA.DAT";
+            string fullpath = Path.Combine(desktoppath, filename);
+            return fullpath;
+        }
+
         private string GetNonEmptyStringFromUser()
         {
             string input = Console.ReadLine();
