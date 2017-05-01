@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-
-namespace AddressBook
+﻿namespace AddressBook
 {
-    public class Recipe :IMatchable
+    public class Recipe : IMatchable
     {
         public Recipe(string title)
         {
@@ -14,18 +9,14 @@ namespace AddressBook
 
         public bool Matches(string term)
         {
-
-            return _title.ToLower().StartsWith(term.ToLower());
-
+            return _title.ToLower().Contains(term.ToLower());
         }
 
         public override string ToString()
         {
-            return _title;
+            return $"RECIPE: {_title}";
         }
-
 
         private string _title;
     }
-
 }
