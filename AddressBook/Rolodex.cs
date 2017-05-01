@@ -9,13 +9,6 @@ namespace AddressBook
         {
             _contactsRepository = contactsRepo;
             _recipesRepository  = recipesRepo;
-
-            //_contacts = new List<Contact>();
-            //_recipes = new Dictionary<RecipeType, List<Recipe>>();
-
-            //_recipes.Add(RecipeType.Appetizers, new List<Recipe>());
-            //_recipes[RecipeType.Entreés] = new List<Recipe>();
-            //_recipes.Add(RecipeType.Desserts, new List<Recipe>());
         }
 
         public void DoStuff()
