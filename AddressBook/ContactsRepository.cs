@@ -8,6 +8,14 @@ namespace AddressBook
     {
         private string _contactsFileName;
 
+        public int Count
+        {
+            get
+            {
+                return GetAllContacts().Count;
+            }
+        }
+
         public ContactsRepository(string contactsFileName)
         {
             this._contactsFileName = contactsFileName;
