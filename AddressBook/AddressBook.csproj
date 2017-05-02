@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company.cs" />
+    <Compile Include="ConsoleReader.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="ContactsRepository.cs" />
+    <Compile Include="IGetInputFromUsers.cs" />
     <Compile Include="IHandleContacts.cs" />
     <Compile Include="IHandleRecipes.cs" />
     <Compile Include="IMatchable.cs" />
