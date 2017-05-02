@@ -1,11 +1,27 @@
-﻿namespace AddressBook
+﻿using Dapper.Contrib.Extensions;
+
+namespace AddressBook
 {
     public class Recipe : IMatchable
     {
+        public Recipe() { } // using empty construtor for dapper
         public Recipe(string title, RecipeType type)
         {
             _title = title;
             _type = type;
+        }
+        [Key]
+        public int RecipeId { get; set; }
+        public string Name
+        {
+            get { return _title; }
+            set { _title = value; }
+        }
+
+        public RecipeType RecipeTypeId
+        {
+            get { return _type; }
+            set { _type = value; }
         }
 
         public bool Matches(string term)

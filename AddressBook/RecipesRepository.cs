@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Dapper.Contrib.Extensions;
+using Dapper;
 
 namespace AddressBook
 {
@@ -31,46 +33,20 @@ namespace AddressBook
 
         public List<Recipe> GetAllRecipes()
         {
-            List<Recipe> recipes = new List<Recipe>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = @"
-                    SELECT RecipeTypeId
-                         , Name
-                      FROM Recipes
-                  ORDER BY RecipeTypeId
-                         , Name
-                ";
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    int recipeTypeId = reader.GetInt32(0);
-                    string title = reader.GetString(1);
-                    Recipe recipe = new Recipe(title,(RecipeType)recipeTypeId);
-                    recipes.Add(recipe);
-                }
+                IEnumerable<Recipe> recipes = connection.GetAll<Recipe>();
+                return new List<Recipe>(recipes);
             }
-            return recipes;
+ 
         }
 
         public void Create(string title, RecipeType choice)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = @"
-                    insert into recipes(recipetypeid, name)
-                    values(@giraffe, @lemur)
-                ";
-                command.Parameters.AddWithValue("@giraffe", choice);
-                command.Parameters.AddWithValue("@lemur", title);
-                command.ExecuteNonQuery();
+                connection.Insert(new Recipe(title, choice));
             }
 
         }
